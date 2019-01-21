@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(visopt-slider CXX)
+project(visoptslider CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -16,18 +16,19 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/tinycolormap)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
-find_packageile(GLOB
+file(GLOB
 	headers
-	${CMAKE_CURRENT_SOURCE_DIR}/include/visopt-slider/*.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/include/visoptslider/*.hpp
 )
+
 file(GLOB
 	sources
 	${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-add_library(visopt-slider STATIC ${headers} ${sources})
-target_link_libraries(visopt-slider Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
-target_include_directories(visopt-slider PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+add_library(visoptslider STATIC ${headers} ${sources})
+target_link_libraries(visoptslider Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
+target_include_directories(visoptslider PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-install(FILES ${headers} DESTINATION include/visopt-slider)
-install(TARGETS visopt-slider ARCHIVE DESTINATION lib)
+install(FILES ${headers} DESTINATION include/visoptslider)
+install(TARGETS visoptslider ARCHIVE DESTINATION lib)
