@@ -14,4 +14,20 @@ endif()
 set(TINYCOLORMAP_BUILD_TOOLS OFF CACHE INTERNAL "" FORCE)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/tinycolormap)
 
-add_subdirectory(visopt-slider)
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+
+find_packageile(GLOB
+	headers
+	${CMAKE_CURRENT_SOURCE_DIR}/include/visopt-slider/*.hpp
+)
+file(GLOB
+	sources
+	${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+add_library(visopt-slider STATIC ${headers} ${sources})
+target_link_libraries(visopt-slider Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
+target_include_directories(visopt-slider PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+install(FILES ${headers} DESTINATION include/visopt-slider)
+install(TARGETS visopt-slider ARCHIVE DESTINATION lib)
