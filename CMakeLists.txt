@@ -14,6 +14,7 @@ endif()
 set(TINYCOLORMAP_BUILD_TOOLS OFF CACHE INTERNAL "" FORCE)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/tinycolormap)
 
+find_package(Eigen3 REQUIRED)
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 file(GLOB
@@ -27,7 +28,7 @@ file(GLOB
 )
 
 add_library(visoptslider STATIC ${headers} ${sources})
-target_link_libraries(visoptslider Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
+target_link_libraries(visoptslider Eigen3::Eigen Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
 target_include_directories(visoptslider PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 install(FILES ${headers} DESTINATION include/visoptslider)
