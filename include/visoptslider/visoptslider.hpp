@@ -2,6 +2,7 @@
 #define visoptslider_hpp
 
 #include <QWidget>
+#include <Eigen/Core>
 
 namespace visopt
 {
