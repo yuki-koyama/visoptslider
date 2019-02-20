@@ -56,7 +56,15 @@ namespace visopt
         double maximum_value_;
         double minimum_value_;
     };
+
+    namespace internal
+    {
+        class VisualizationWidget : public QWidget
+        {
+        protected:
+            void paintEvent(QPaintEvent* event);
+        };
+    }
 }
 
 #endif
-
