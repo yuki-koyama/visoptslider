@@ -16,9 +16,10 @@ namespace visopt
             target_dimension_ = target_dimension;
         }
 
-        void setSliderValues(const Eigen::VectorXd& slider_values)
+        const Eigen::VectorXd& getArgument() const { return argument_; }
+        void setArgument(const Eigen::VectorXd& argument)
         {
-            slider_values_ = slider_values;
+            argument_ = argument;
         }
 
         void setTargetFunction(const std::function<double(const Eigen::VectorXd&)>& target_function)
@@ -46,9 +47,13 @@ namespace visopt
             minimum_value_ = minimum_value;
         }
 
+        int getGradientResolution() const { return gradient_resolution_; }
+
     private:
+        const int gradient_resolution_ = 5;
+
         int target_dimension_;
-        Eigen::VectorXd slider_values_;
+        Eigen::VectorXd argument_;
         std::function<double(const Eigen::VectorXd&)> target_function_;
 
         Eigen::VectorXd upper_bound_;
@@ -62,10 +67,14 @@ namespace visopt
         class VisualizationWidget : public QWidget
         {
         public:
-            VisualizationWidget(QWidget* parent);
-            
+            VisualizationWidget(const int target_dimension, SlidersWidget* parent);
+
         protected:
             void paintEvent(QPaintEvent* event);
+
+        private:
+            const int target_dimension_;
+            const SlidersWidget* parent_widget_ = nullptr;
         };
     }
 }

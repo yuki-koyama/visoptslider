@@ -5,6 +5,10 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     visopt::SlidersWidget sliders_widget;
+    sliders_widget.setTargetFunction([](const Eigen::VectorXd& x)
+                                     {
+                                         return x.norm();
+                                     });
     sliders_widget.show();
     return app.exec();
 }
