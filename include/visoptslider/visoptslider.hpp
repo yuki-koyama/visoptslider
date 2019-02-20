@@ -1,15 +1,15 @@
 #ifndef visoptslider_hpp
 #define visoptslider_hpp
 
-#include <QWidget>
+#include <QGroupBox>
 #include <Eigen/Core>
 
 namespace visopt
 {
-    class SlidersWidget : public QWidget
+    class SlidersWidget : public QGroupBox
     {
     public:
-        SlidersWidget(QWidget* parent = nullptr, Qt::WindowFlags f = Qt::Widget);
+        SlidersWidget(QWidget* parent = nullptr);
 
         void setTargetDimension(const int target_dimension)
         {
