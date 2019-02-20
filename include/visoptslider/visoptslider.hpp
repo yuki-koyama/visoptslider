@@ -61,6 +61,9 @@ namespace visopt
     {
         class VisualizationWidget : public QWidget
         {
+        public:
+            VisualizationWidget(QWidget* parent);
+            
         protected:
             void paintEvent(QPaintEvent* event);
         };
