@@ -11,6 +11,13 @@ namespace visopt
     public:
         SlidersWidget(QWidget* parent = nullptr);
 
+        void initialize(const int target_dimension,
+                        const std::function<double(const Eigen::VectorXd&)>& target_function,
+                        const Eigen::VectorXd& upper_bound,
+                        const Eigen::VectorXd& lower_bound,
+                        const double maximum_value,
+                        const double minimum_value);
+
         void setTargetDimension(const int target_dimension)
         {
             target_dimension_ = target_dimension;

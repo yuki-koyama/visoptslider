@@ -4,16 +4,25 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    constexpr int target_dimension = 3;
+    constexpr auto target_function = [](const Eigen::VectorXd& x)
+    {
+        return 1.0 - x.norm();
+    };
+    const Eigen::Vector3d upper_bound(+ 1.0, + 1.0, + 1.0);
+    const Eigen::Vector3d lower_bound(- 1.0, - 1.0, - 1.0);
+    constexpr double maximum_value = 1.0;
+    constexpr double minimum_value = 0.0;
+
     visopt::SlidersWidget sliders_widget;
-    sliders_widget.setMinimumValue(0.0);
-    sliders_widget.setMaximumValue(1.0);
-    sliders_widget.setLowerBound(Eigen::Vector3d(- 1.0, - 1.0, - 1.0));
-    sliders_widget.setUpperBound(Eigen::Vector3d(+ 1.0, + 1.0, + 1.0));
-    sliders_widget.setArgument(Eigen::Vector3d(0.4, 0.2, 0.6));
-    sliders_widget.setTargetFunction([](const Eigen::VectorXd& x)
-                                     {
-                                         return x.norm();
-                                     });
+    sliders_widget.initialize(target_dimension,
+                              target_function,
+                              upper_bound,
+                              lower_bound,
+                              maximum_value,
+                              minimum_value);
     sliders_widget.show();
+    
     return app.exec();
 }
