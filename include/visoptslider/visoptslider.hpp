@@ -1,8 +1,12 @@
 #ifndef visoptslider_hpp
 #define visoptslider_hpp
 
-#include <QGroupBox>
+#include <vector>
 #include <Eigen/Core>
+#include <QGroupBox>
+
+class QSlider;
+namespace visopt { namespace internal { class VisualizationWidget; } }
 
 namespace visopt
 {
@@ -13,16 +17,16 @@ namespace visopt
     public:
         SlidersWidget(QWidget* parent = nullptr);
 
-        void initialize(const int target_dimension,
+        void initialize(const int num_dimensions,
                         const std::function<double(const Eigen::VectorXd&)>& target_function,
                         const Eigen::VectorXd& upper_bound,
                         const Eigen::VectorXd& lower_bound,
                         const double maximum_value,
                         const double minimum_value);
 
-        void setTargetDimension(const int target_dimension)
+        void setNumDimensions(const int num_dimensions)
         {
-            target_dimension_ = target_dimension;
+            num_dimensions_ = num_dimensions;
         }
 
         const Eigen::VectorXd& getArgument() const { return argument_; }
@@ -73,7 +77,7 @@ namespace visopt
     private:
         const int gradient_resolution_ = 50;
 
-        int target_dimension_;
+        int num_dimensions_;
         Eigen::VectorXd argument_;
         std::function<double(const Eigen::VectorXd&)> target_function_;
 
@@ -81,6 +85,9 @@ namespace visopt
         Eigen::VectorXd lower_bound_;
         double maximum_value_;
         double minimum_value_;
+
+        std::vector<QSlider*> sliders_;
+        std::vector<internal::VisualizationWidget*> visualizations_widgets_;
     };
 
     namespace internal

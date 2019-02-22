@@ -11,30 +11,30 @@ namespace visopt
     SlidersWidget::SlidersWidget(QWidget* parent) :
     QGroupBox(parent)
     {
-        QBoxLayout *sliders_layout = new QBoxLayout(QBoxLayout::TopToBottom);
-
-        sliders_layout->addWidget(new QSlider(Qt::Horizontal));
-        sliders_layout->addWidget(new internal::VisualizationWidget(0, this));
-        sliders_layout->addWidget(new QSlider(Qt::Horizontal));
-        sliders_layout->addWidget(new internal::VisualizationWidget(1, this));
-        sliders_layout->addWidget(new QSlider(Qt::Horizontal));
-        sliders_layout->addWidget(new internal::VisualizationWidget(2, this));
-
-        setLayout(sliders_layout);
+        setLayout(new QBoxLayout(QBoxLayout::TopToBottom));
     }
 
-    void SlidersWidget::initialize(const int target_dimension,
+    void SlidersWidget::initialize(const int num_dimensions,
                                    const std::function<double(const Eigen::VectorXd&)>& target_function,
                                    const Eigen::VectorXd& upper_bound,
                                    const Eigen::VectorXd& lower_bound,
                                    const double maximum_value,
                                    const double minimum_value)
     {
-        assert(target_dimension == upper_bound.rows());
-        assert(target_dimension == lower_bound.rows());
+        assert(num_dimensions == upper_bound.rows());
+        assert(num_dimensions == lower_bound.rows());
         assert(maximum_value > minimum_value);
 
-        setTargetDimension(target_dimension);
+        for (int dimension = 0; dimension < num_dimensions; ++ dimension)
+        {
+            sliders_.push_back(new QSlider(Qt::Horizontal));
+            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
+
+            this->layout()->addWidget(sliders_[dimension]);
+            this->layout()->addWidget(visualizations_widgets_[dimension]);
+        }
+
+        setNumDimensions(num_dimensions);
         setTargetFunction(target_function);
         setUpperBound(upper_bound);
         setLowerBound(lower_bound);
