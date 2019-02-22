@@ -44,6 +44,11 @@ namespace visopt
         setArgument(0.5 * (upper_bound + lower_bound));
     }
 
+    void SlidersWidget::slidersManipulatedViaGui()
+    {
+
+    }
+
     namespace internal
     {
         VisualizationWidget::VisualizationWidget(const int target_dimension, SlidersWidget* parent) :
