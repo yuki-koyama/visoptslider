@@ -12,8 +12,6 @@ namespace visopt
 {
     class SlidersWidget : public QGroupBox
     {
-        Q_OBJECT
-
     public:
         SlidersWidget(QWidget* parent = nullptr);
 
@@ -71,10 +69,9 @@ namespace visopt
             return target_function_(argument);
         }
 
-    public slots:
+    private:
         void slidersManipulatedViaGui();
 
-    private:
         const int gradient_resolution_ = 50;
 
         int num_dimensions_;

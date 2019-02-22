@@ -30,7 +30,7 @@ namespace visopt
             sliders_.push_back(new QSlider(Qt::Horizontal));
             visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
 
-            connect(sliders_[dimension], &QSlider::valueChanged, this, &SlidersWidget::slidersManipulatedViaGui);
+            connect(sliders_[dimension], &QSlider::valueChanged, this, [&](){ this->slidersManipulatedViaGui(); });
 
             this->layout()->addWidget(sliders_[dimension]);
             this->layout()->addWidget(visualizations_widgets_[dimension]);

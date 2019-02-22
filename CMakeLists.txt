@@ -35,8 +35,6 @@ file(GLOB
 	${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
 )
 
-set(CMAKE_AUTOMOC ON)
-
 add_library(visoptslider STATIC ${headers} ${sources})
 target_link_libraries(visoptslider Eigen3::Eigen Qt5::Core Qt5::Gui Qt5::Widgets tinycolormap)
 target_include_directories(visoptslider PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
