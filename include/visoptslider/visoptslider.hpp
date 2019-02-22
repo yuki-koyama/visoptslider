@@ -66,7 +66,7 @@ namespace visopt
         }
 
     private:
-        const int gradient_resolution_ = 20;
+        const int gradient_resolution_ = 50;
 
         int target_dimension_;
         Eigen::VectorXd argument_;

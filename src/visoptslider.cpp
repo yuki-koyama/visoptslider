@@ -63,10 +63,10 @@ namespace visopt
             QPainter painter;
 
             // Set design parameters
-            QPen indicator_pen(QColor(0x00, 0x00, 0x00));
+            QPen indicator_pen(QColor(0x20, 0x20, 0x20));
             indicator_pen.setWidth(2);
 
-            QPen boundary_pen(QColor(0x00, 0x00, 0x00));
+            QPen boundary_pen(QColor(0x20, 0x20, 0x20));
             boundary_pen.setWidth(4);
 
             constexpr double indicator_width = 10.0;
