@@ -71,6 +71,7 @@ namespace visopt
 
     private:
         void slidersManipulatedViaGui();
+        Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
 
         const int gradient_resolution_ = 50;
 

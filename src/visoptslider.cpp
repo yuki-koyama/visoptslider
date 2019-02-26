@@ -48,7 +48,23 @@ namespace visopt
 
     void SlidersWidget::slidersManipulatedViaGui()
     {
+        const Eigen::VectorXd x = calculateArgumentFromCurrentSliders();
+    }
 
+    Eigen::VectorXd SlidersWidget::calculateArgumentFromCurrentSliders() const
+    {
+        Eigen::VectorXd normalized_argument(num_dimensions_);
+        for (int dimension = 0; dimension < num_dimensions_; ++ dimension)
+        {
+            const auto slider = sliders_[dimension];
+            const int  v      = slider->value();
+            const int  v_min  = slider->minimum();
+            const int  v_max  = slider->maximum();
+
+            normalized_argument(dimension) = static_cast<double>(v - v_min) / static_cast<double>(v_max - v_min);
+        }
+
+        return normalized_argument.cwiseProduct(upper_bound_ - lower_bound_) + lower_bound_;
     }
 
     namespace internal
