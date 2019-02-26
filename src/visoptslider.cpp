@@ -48,7 +48,8 @@ namespace visopt
 
     void SlidersWidget::slidersManipulatedViaGui()
     {
-        const Eigen::VectorXd x = calculateArgumentFromCurrentSliders();
+        argument_ = calculateArgumentFromCurrentSliders();
+        update();
     }
 
     Eigen::VectorXd SlidersWidget::calculateArgumentFromCurrentSliders() const
