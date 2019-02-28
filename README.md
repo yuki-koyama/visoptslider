@@ -2,6 +2,8 @@
 
 Qt-based implementation of VisOpt Slider widget [UIST 2014]
 
+![Interactive exploration of a 3-dimensional Rosenbrock function](./docs/3d_rosenbrock.gif "Interactive exploration of a 3-dimensional Rosenbrock function.")
+
 ## Features
 
 VisOpt Slider is a GUI widget consisting of multiple sliders. It is specifically designed for interactive exploration of a high-dimensional scalar-valued function. It has the following special features.
