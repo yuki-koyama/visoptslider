@@ -72,7 +72,7 @@ namespace visopt
         Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
         void setSliderValuesUsingCurrentArgument();
 
-        const int gradient_resolution_ = 50;
+        const int gradient_resolution_ = 200;
 
         int num_dimensions_;
         Eigen::VectorXd argument_;

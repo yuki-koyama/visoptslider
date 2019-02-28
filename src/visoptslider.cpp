@@ -27,13 +27,16 @@ namespace visopt
 
         for (int dimension = 0; dimension < num_dimensions; ++ dimension)
         {
-            sliders_.push_back(new QSlider(Qt::Horizontal));
-            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
+            QSlider* slider = new QSlider(Qt::Horizontal);
 
-            connect(sliders_[dimension], &QSlider::valueChanged, this, [&](){ this->slidersManipulatedViaGui(); });
+            sliders_.push_back(slider);
+            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
 
             this->layout()->addWidget(sliders_[dimension]);
             this->layout()->addWidget(visualizations_widgets_[dimension]);
+
+            slider->setMaximum(slider->width());
+            connect(slider, &QSlider::valueChanged, this, [&](){ this->slidersManipulatedViaGui(); });
         }
 
         setNumDimensions(num_dimensions);
