@@ -4,13 +4,15 @@ Qt-based implementation of VisOpt Slider widget [UIST 2014]
 
 ## Features
 
+VisOpt Slider is a GUI widget consisting of multiple sliders. It is specifically designed for interactive exploration of a high-dimensional scalar-valued function. It has the following special features.
+
 ### Visualization
 
-VisOpt Slider visualizes the values of the target function along with the sliders in the interface using a colormap. This is useful for exploration of high-dimensional spaces.
+VisOpt Slider visualizes the values of the target function along with the sliders in the interface using a colormap.
 
 ### Optimization
 
-Not available yet. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
+_Not available yet_. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
 
 ## Example
 
