@@ -47,6 +47,8 @@ install(TARGETS visoptslider ARCHIVE DESTINATION lib)
 # Build tests
 
 if(VISOPTSLIDER_BUILD_TESTS)
+	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/optimization-test-functions)
+
 	add_executable(simple-test ${CMAKE_CURRENT_SOURCE_DIR}/tests/simple_test.cpp)
-	target_link_libraries(simple-test visoptslider)
+	target_link_libraries(simple-test visoptslider optimization-test-functions)
 endif()
