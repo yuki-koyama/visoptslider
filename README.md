@@ -55,6 +55,18 @@ int main(int argc, char *argv[])
 }
 ```
 
+## Dependencies
+
+### Prerequisites
+
+- Eigen (e.g., `brew install eigen`)
+- Qt5 (e.g., `brew install qt`)
+
+### Included as Submodules
+
+- tinycolormap <https://github.com/yuki-koyama/tinycolormap>
+- optimization-test-functions <https://github.com/yuki-koyama/optimization-test-functions>
+
 ## References
 
 - Yuki Koyama, Daisuke Sakamoto, and Takeo Igarashi. 2014. __Crowd-Powered Parameter Analysis for Visual Design Exploration__. In _Proceedings of the 27th annual ACM symposium on User interface software and technology_ (UIST '14), pp.65-74. DOI: <https://doi.org/10.1145/2642918.2647386>
