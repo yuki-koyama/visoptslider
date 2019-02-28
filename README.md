@@ -47,3 +47,7 @@ int main(int argc, char *argv[])
   - Project page: <https://koyama.xyz/project/CrowdPoweredAnalysis/>
 - Yuki Koyama, Daisuke Sakamoto, and Takeo Igarashi. 2016. __SelPh: Progressive Learning and Support of Manual Photo Color Enhancement__. In _Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems_ (CHI '16), pp.2520--2532. DOI: <https://doi.org/10.1145/2858036.2858111>
   - Project page: <https://koyama.xyz/project/SelPh/>
+
+## License
+
+MIT License.
