@@ -1,5 +1,7 @@
 #include <QApplication>
 #include <visoptslider/visoptslider.hpp>
+#define OTF_WITH_EIGEN
+#include <optimization-test-functions.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -8,11 +10,11 @@ int main(int argc, char *argv[])
     constexpr int target_dimension = 3;
     constexpr auto target_function = [](const Eigen::VectorXd& x)
     {
-        return 1.0 - x.norm();
+        return otf::GetValue(x, otf::FunctionType::Rosenbrock);
     };
-    const Eigen::Vector3d upper_bound(+ 1.0, + 1.0, + 1.0);
-    const Eigen::Vector3d lower_bound(- 1.0, - 1.0, - 1.0);
-    constexpr double maximum_value = 1.0;
+    const Eigen::Vector3d upper_bound(+ 2.0, + 2.0, + 2.0);
+    const Eigen::Vector3d lower_bound(- 2.0, - 2.0, - 2.0);
+    constexpr double maximum_value = 200.0;
     constexpr double minimum_value = 0.0;
 
     visopt::SlidersWidget sliders_widget;
