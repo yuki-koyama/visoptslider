@@ -2,6 +2,16 @@
 
 Qt-based implementation of VisOpt Slider widget [UIST 2014]
 
+## Features
+
+### Visualization
+
+VisOpt Slider visualizes the values of the target function along with the sliders in the interface using a colormap. This is useful for exploration of high-dimensional spaces.
+
+### Optimization
+
+Not available yet. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
+
 ## Example
 
 ```cpp
