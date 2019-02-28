@@ -28,10 +28,6 @@ namespace visopt
         }
 
         const Eigen::VectorXd& getArgument() const { return argument_; }
-        void setArgument(const Eigen::VectorXd& argument)
-        {
-            argument_ = argument;
-        }
 
         void setTargetFunction(const std::function<double(const Eigen::VectorXd&)>& target_function)
         {
@@ -69,9 +65,12 @@ namespace visopt
             return target_function_(argument);
         }
 
+        void setArgumentAndUpdateSliders(const Eigen::VectorXd& argument);
+
     private:
         void slidersManipulatedViaGui();
         Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
+        void setSliderValuesUsingCurrentArgument();
 
         const int gradient_resolution_ = 50;
 

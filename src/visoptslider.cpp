@@ -43,7 +43,13 @@ namespace visopt
         setMaximumValue(maximum_value);
         setMinimumValue(minimum_value);
 
-        setArgument(0.5 * (upper_bound + lower_bound));
+        setArgumentAndUpdateSliders(0.5 * (upper_bound + lower_bound));
+    }
+
+    void SlidersWidget::setArgumentAndUpdateSliders(const Eigen::VectorXd& argument)
+    {
+        argument_ = argument;
+        setSliderValuesUsingCurrentArgument();
     }
 
     void SlidersWidget::slidersManipulatedViaGui()
@@ -66,6 +72,23 @@ namespace visopt
         }
 
         return normalized_argument.cwiseProduct(upper_bound_ - lower_bound_) + lower_bound_;
+    }
+
+    void SlidersWidget::setSliderValuesUsingCurrentArgument()
+    {
+        const Eigen::VectorXd normalized_argument = (argument_ - lower_bound_).cwiseProduct((upper_bound_ - lower_bound_).cwiseInverse());
+
+        for (int dimension = 0; dimension < num_dimensions_; ++ dimension)
+        {
+            const auto slider = sliders_[dimension];
+            const int  v_min  = slider->minimum();
+            const int  v_max  = slider->maximum();
+            const int  v      = static_cast<int>(normalized_argument(dimension) * static_cast<double>(v_max - v_min)) + v_min;
+
+            slider->blockSignals(true);
+            slider->setValue(v);
+            slider->blockSignals(false);
+        }
     }
 
     namespace internal
