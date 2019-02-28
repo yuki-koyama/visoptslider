@@ -40,3 +40,10 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 ```
+
+## References
+
+- Yuki Koyama, Daisuke Sakamoto, and Takeo Igarashi. 2014. __Crowd-Powered Parameter Analysis for Visual Design Exploration__. In _Proceedings of the 27th annual ACM symposium on User interface software and technology_ (UIST '14), pp.65-74. DOI: <https://doi.org/10.1145/2642918.2647386>
+  - Project page: <https://koyama.xyz/project/CrowdPoweredAnalysis/>
+- Yuki Koyama, Daisuke Sakamoto, and Takeo Igarashi. 2016. __SelPh: Progressive Learning and Support of Manual Photo Color Enhancement__. In _Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems_ (CHI '16), pp.2520--2532. DOI: <https://doi.org/10.1145/2858036.2858111>
+  - Project page: <https://koyama.xyz/project/SelPh/>
