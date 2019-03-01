@@ -16,6 +16,17 @@ VisOpt Slider visualizes the values of the target function along with the slider
 
 _Not available yet_. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
 
+## Build
+
+This project is managed by using CMake. It can be built by the standard CMake cycle:
+```
+git clone https://github.com/yuki-koyama/visoptslider.git --recursive
+mkdir build
+cd build
+cmake ../visoptslider
+make
+```
+
 ## Example
 
 ```cpp
