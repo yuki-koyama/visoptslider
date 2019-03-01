@@ -5,6 +5,7 @@
 #include <Eigen/Core>
 #include <QGroupBox>
 
+class QLineEdit;
 class QSlider;
 namespace visopt { namespace internal { class VisualizationWidget; } }
 
@@ -20,7 +21,9 @@ namespace visopt
                         const Eigen::VectorXd& upper_bound,
                         const Eigen::VectorXd& lower_bound,
                         const double maximum_value,
-                        const double minimum_value);
+                        const double minimum_value,
+                        const std::vector<std::string>& labels = {},
+                        const bool show_values = false);
 
         void setNumDimensions(const int num_dimensions)
         {
@@ -71,6 +74,7 @@ namespace visopt
         void slidersManipulatedViaGui();
         Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
         void setSliderValuesUsingCurrentArgument();
+        void setLabelsUsingCurrentArgument();
 
         const int gradient_resolution_ = 200;
 
@@ -85,6 +89,7 @@ namespace visopt
 
         std::vector<QSlider*> sliders_;
         std::vector<internal::VisualizationWidget*> visualizations_widgets_;
+        std::vector<QLineEdit*> value_labels_;
     };
 
     namespace internal

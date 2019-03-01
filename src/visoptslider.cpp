@@ -1,8 +1,10 @@
 #include <visoptslider/visoptslider.hpp>
+#include <QGridLayout>
+#include <QLabel>
+#include <QLineEdit>
 #include <QPainter>
 #include <QPaintEvent>
 #include <QSlider>
-#include <QBoxLayout>
 #define TINYCOLORMAP_WITH_QT5
 #include <tinycolormap.hpp>
 
@@ -11,7 +13,6 @@ namespace visopt
     SlidersWidget::SlidersWidget(QWidget* parent) :
     QGroupBox(parent)
     {
-        setLayout(new QBoxLayout(QBoxLayout::TopToBottom));
     }
 
     void SlidersWidget::initialize(const int num_dimensions,
@@ -19,24 +20,57 @@ namespace visopt
                                    const Eigen::VectorXd& upper_bound,
                                    const Eigen::VectorXd& lower_bound,
                                    const double maximum_value,
-                                   const double minimum_value)
+                                   const double minimum_value,
+                                   const std::vector<std::string>& labels,
+                                   const bool show_values)
+
     {
         assert(num_dimensions == upper_bound.rows());
         assert(num_dimensions == lower_bound.rows());
         assert(maximum_value > minimum_value);
+        assert(labels.empty() || labels.size() == num_dimensions);
 
+        const bool has_labels = !labels.empty();
+
+        // Initialize the widget layout
+        QGridLayout* grid_layout = new QGridLayout();
+        setLayout(grid_layout);
+
+        // Instantiate widgets
         for (int dimension = 0; dimension < num_dimensions; ++ dimension)
         {
+            // Instantiate a slider and set a callback
             QSlider* slider = new QSlider(Qt::Horizontal);
-
-            sliders_.push_back(slider);
-            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
-
-            this->layout()->addWidget(sliders_[dimension]);
-            this->layout()->addWidget(visualizations_widgets_[dimension]);
-
-            slider->setMaximum(slider->width());
             connect(slider, &QSlider::valueChanged, this, [&](){ this->slidersManipulatedViaGui(); });
+            sliders_.push_back(slider);
+            grid_layout->addWidget(sliders_[dimension], dimension * 2, 1);
+
+            // Instantiate a visualization widget
+            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
+            grid_layout->addWidget(visualizations_widgets_[dimension], dimension * 2 + 1, 1);
+
+            // Instantiate a parameter label widget (if requested)
+            if (has_labels)
+            {
+                grid_layout->addWidget(new QLabel(QString::fromStdString(labels[dimension])), dimension * 2, 0);
+            }
+
+            // Instantiate a value label widget (if requested)
+            QFont font("");
+            font.setStyleHint(QFont::Monospace);
+            if (show_values)
+            {
+                QLineEdit* line_edit = new QLineEdit();
+                line_edit->setReadOnly(true);
+                line_edit->setFixedWidth(46);
+                line_edit->setMaxLength(5);
+                line_edit->setFont(font);
+                value_labels_.push_back(line_edit);
+                grid_layout->addWidget(line_edit, dimension * 2, 2);
+            }
+
+            // Change the slider's resolution (this needs to be done after adding all the widgets)
+            slider->setMaximum(slider->width());
         }
 
         setNumDimensions(num_dimensions);
@@ -52,12 +86,14 @@ namespace visopt
     void SlidersWidget::setArgumentAndUpdateSliders(const Eigen::VectorXd& argument)
     {
         argument_ = argument;
+        setLabelsUsingCurrentArgument();
         setSliderValuesUsingCurrentArgument();
     }
 
     void SlidersWidget::slidersManipulatedViaGui()
     {
         argument_ = calculateArgumentFromCurrentSliders();
+        setLabelsUsingCurrentArgument();
         update();
     }
 
@@ -91,6 +127,17 @@ namespace visopt
             slider->blockSignals(true);
             slider->setValue(v);
             slider->blockSignals(false);
+        }
+    }
+
+    void SlidersWidget::setLabelsUsingCurrentArgument()
+    {
+        if (value_labels_.empty()) { return; }
+
+        for (int dimension = 0; dimension < num_dimensions_; ++ dimension)
+        {
+            const QString label = QString((argument_[dimension] >= 0.0) ? "+" : "") + QString::number(argument_[dimension]);
+            value_labels_[dimension]->setText(label);
         }
     }
 
