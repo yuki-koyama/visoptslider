@@ -1,4 +1,4 @@
-from PySide2.QtWidgets import QApplication, QWidget, QGroupBox, QGridLayout, QSlider
+from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QSlider, QWidget
 from PySide2.QtCore import Qt
 import numpy as np
 
@@ -45,6 +45,20 @@ class SliderWidget(QGroupBox):
             visualization_widget = VisualizationWidget(dimension, self)
             visualization_widgets.append(visualization_widget)
             grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
+
+            # Instantiate a parameter label widget (if requested)
+            if has_labels:
+                grid_layout.addWidget(QLabel(labels[dimension]), dimension * 2, 0)
+
+            # Instantiate a value label widget (if requested)
+            if show_values:
+                # TODO
+                pass
+
+            # Change the slider's resolution (this needs to be done after adding all the widgets)
+            slider.setMaximum(slider.width())
+
+        # TODO
 
 
 class VisualizationWidget(QWidget):
