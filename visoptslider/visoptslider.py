@@ -1,10 +1,14 @@
-from PySide2.QtWidgets import QApplication, QWidget, QGroupBox
+from PySide2.QtWidgets import QApplication, QWidget, QGroupBox, QGridLayout, QSlider
+from PySide2.QtCore import Qt
 import numpy as np
 
 
 class SliderWidget(QGroupBox):
     def __init__(self, parent):
         QGroupBox.__init__(self, parent)
+
+    def slidersManipulatedViaGui(self):
+        print("slidersManipulatedViaGui")
 
     def initialize(self,
                    num_dimensions,
@@ -17,10 +21,34 @@ class SliderWidget(QGroupBox):
                    show_values=False):
         assert num_dimensions == upper_bound.shape[0]
         assert num_dimensions == lower_bound.shape[0]
+        assert maximum_value > minimum_value
+        assert len(labels) == 0 or len(labels) == num_dimensions
+
+        has_labels = len(labels) != 0
+
+        # Initialize the widget layout
+        grid_layout = QGridLayout()
+        self.setLayout(grid_layout)
+
+        sliders = []
+        visualization_widgets = []
+
+        # Instantiate widgets
+        for dimension in range(num_dimensions):
+            # Instantiate a slider and set a callback
+            slider = QSlider(Qt.Horizontal, self)
+            slider.valueChanged.connect(self.slidersManipulatedViaGui)
+            sliders.append(slider)
+            grid_layout.addWidget(slider, dimension * 2, 1)
+
+            # Instantiate a visualization widget
+            visualization_widget = VisualizationWidget(dimension, self)
+            visualization_widgets.append(visualization_widget)
+            grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
 
 
 class VisualizationWidget(QWidget):
-    def __init__(self, parent):
+    def __init__(self, dimension, parent):
         QWidget.__init__(self, parent)
 
 
