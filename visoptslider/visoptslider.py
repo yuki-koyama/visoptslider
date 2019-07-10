@@ -58,8 +58,56 @@ class SliderWidget(QGroupBox):
             # Change the slider's resolution (this needs to be done after adding all the widgets)
             slider.setMaximum(slider.width())
 
+        self.num_dimensions = num_dimensions
+        self.target_function = target_function
+        self.upper_bound = upper_bound
+        self.lower_bound = lower_bound
+
         # TODO
 
+    def num_dimensions():
+        doc = "The num_dimensions property."
+        def fget(self):
+            return self._num_dimensions
+        def fset(self, value):
+            self._num_dimensions = value
+        def fdel(self):
+            del self._num_dimensions
+        return locals()
+    num_dimensions = property(**num_dimensions())
+
+    def target_function():
+        doc = "The target_function property."
+        def fget(self):
+            return self._target_function
+        def fset(self, value):
+            self._target_function = value
+        def fdel(self):
+            del self._target_function
+        return locals()
+    target_function = property(**target_function())
+
+    def upper_bound():
+        doc = "The upper_bound property."
+        def fget(self):
+            return self._upper_bound
+        def fset(self, value):
+            self._upper_bound = value
+        def fdel(self):
+            del self._upper_bound
+        return locals()
+    upper_bound = property(**upper_bound())
+
+    def lower_bound():
+        doc = "The lower_bound property."
+        def fget(self):
+            return self._lower_bound
+        def fset(self, value):
+            self._lower_bound = value
+        def fdel(self):
+            del self._lower_bound
+        return locals()
+    lower_bound = property(**lower_bound())
 
 class VisualizationWidget(QWidget):
     def __init__(self, dimension, parent):
