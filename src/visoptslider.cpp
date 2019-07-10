@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QSlider>
-#define TINYCOLORMAP_WITH_QT5
 #include <tinycolormap.hpp>
 
 namespace visopt

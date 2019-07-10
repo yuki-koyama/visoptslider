@@ -3,7 +3,6 @@
 #include <Eigen/Core>
 #include <QApplication>
 #include <visoptslider/visoptslider.hpp>
-#define OTF_WITH_EIGEN
 #include <optimization-test-functions.hpp>
 
 int main(int argc, char *argv[])

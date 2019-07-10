@@ -18,6 +18,8 @@ if(APPLE AND EXISTS /usr/local/opt/qt)
 endif()
 
 set(TINYCOLORMAP_BUILD_TOOLS OFF CACHE INTERNAL "" FORCE)
+set(TINYCOLORMAP_WITH_EIGEN  OFF CACHE INTERNAL "" FORCE)
+set(TINYCOLORMAP_WITH_QT5    ON  CACHE INTERNAL "" FORCE)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/tinycolormap)
 
 find_package(Eigen3 REQUIRED)
@@ -47,6 +49,7 @@ install(TARGETS visoptslider ARCHIVE DESTINATION lib)
 # Build tests
 
 if(VISOPTSLIDER_BUILD_TESTS)
+	set(OTF_WITH_EIGEN ON CACHE INTERNAL "" FORCE)
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/optimization-test-functions)
 
 	add_executable(simple-test ${CMAKE_CURRENT_SOURCE_DIR}/tests/simple_test.cpp)
