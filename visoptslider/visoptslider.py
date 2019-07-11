@@ -4,11 +4,12 @@ import numpy as np
 
 
 class SliderWidget(QGroupBox):
+
+    __sliders = []
+    __visualization_widgets = []
+
     def __init__(self, parent):
         QGroupBox.__init__(self, parent)
-
-    def slidersManipulatedViaGui(self):
-        print("slidersManipulatedViaGui")
 
     def initialize(self,
                    num_dimensions,
@@ -30,20 +31,17 @@ class SliderWidget(QGroupBox):
         grid_layout = QGridLayout()
         self.setLayout(grid_layout)
 
-        sliders = []
-        visualization_widgets = []
-
         # Instantiate widgets
         for dimension in range(num_dimensions):
             # Instantiate a slider and set a callback
             slider = QSlider(Qt.Horizontal, self)
-            slider.valueChanged.connect(self.slidersManipulatedViaGui)
-            sliders.append(slider)
+            slider.valueChanged.connect(self.__sliders_manipulated_via_gui)
+            self.__sliders.append(slider)
             grid_layout.addWidget(slider, dimension * 2, 1)
 
             # Instantiate a visualization widget
             visualization_widget = VisualizationWidget(dimension, self)
-            visualization_widgets.append(visualization_widget)
+            self.__visualization_widgets.append(visualization_widget)
             grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
 
             # Instantiate a parameter label widget (if requested)
@@ -62,52 +60,103 @@ class SliderWidget(QGroupBox):
         self.target_function = target_function
         self.upper_bound = upper_bound
         self.lower_bound = lower_bound
+        self.maximum_value = maximum_value
+        self.minimum_value = minimum_value
 
-        # TODO
+        self.set_argument_and_update_sliders(0.5 * (upper_bound + lower_bound))
 
     def num_dimensions():
         doc = "The num_dimensions property."
         def fget(self):
-            return self._num_dimensions
+            return self.__num_dimensions
         def fset(self, value):
-            self._num_dimensions = value
+            self.__num_dimensions = value
         def fdel(self):
-            del self._num_dimensions
+            del self.__num_dimensions
         return locals()
     num_dimensions = property(**num_dimensions())
 
     def target_function():
         doc = "The target_function property."
         def fget(self):
-            return self._target_function
+            return self.__target_function
         def fset(self, value):
-            self._target_function = value
+            self.__target_function = value
         def fdel(self):
-            del self._target_function
+            del self.__target_function
         return locals()
     target_function = property(**target_function())
 
     def upper_bound():
         doc = "The upper_bound property."
         def fget(self):
-            return self._upper_bound
+            return self.__upper_bound
         def fset(self, value):
-            self._upper_bound = value
+            self.__upper_bound = value
         def fdel(self):
-            del self._upper_bound
+            del self.__upper_bound
         return locals()
     upper_bound = property(**upper_bound())
 
     def lower_bound():
         doc = "The lower_bound property."
         def fget(self):
-            return self._lower_bound
+            return self.__lower_bound
         def fset(self, value):
-            self._lower_bound = value
+            self.__lower_bound = value
         def fdel(self):
-            del self._lower_bound
+            del self.__lower_bound
         return locals()
     lower_bound = property(**lower_bound())
+
+    def maximum_value():
+        doc = "The maximum_value property."
+        def fget(self):
+            return self.__maximum_value
+        def fset(self, value):
+            self.__maximum_value = value
+        def fdel(self):
+            del self.__maximum_value
+        return locals()
+    maximum_value = property(**maximum_value())
+
+    def minimum_value():
+        doc = "The minimum_value property."
+        def fget(self):
+            return self.__minimum_value
+        def fset(self, value):
+            self.__minimum_value = value
+        def fdel(self):
+            del self.__minimum_value
+        return locals()
+    minimum_value = property(**minimum_value())
+
+    def argument():
+        doc = "The argument property."
+        def fget(self):
+            return self.__argument
+        def fdel(self):
+            del self.__argument
+        return locals()
+    argument = property(**argument())
+
+    def set_argument_and_update_sliders(self, argument):
+        self.__argument = argument
+        self.__set_labels_using_current_argument()
+        self.__set_slider_values_using_current_argument()
+
+    def __sliders_manipulated_via_gui(self):
+        pass
+
+    def __calculate_argument_from_current_sliders(self):
+        pass
+
+    def __set_slider_values_using_current_argument(self):
+        pass
+
+    def __set_labels_using_current_argument(self):
+        pass
+
 
 class VisualizationWidget(QWidget):
     def __init__(self, dimension, parent):
