@@ -1,1 +1,1 @@
-from . import visoptslider
+from visoptslider.visoptslider import *

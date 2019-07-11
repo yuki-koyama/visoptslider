@@ -12,7 +12,7 @@ class SlidersWidget(QGroupBox):
     __visualization_widgets = []
     __value_labels = []
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         QGroupBox.__init__(self, parent)
 
     def initialize(self,
@@ -346,7 +346,7 @@ if __name__ == "__main__":
     labels = ["x1", "x2", "x3"]
     show_values = True
 
-    sliders_widget = SlidersWidget(None)
+    sliders_widget = SlidersWidget()
     sliders_widget.initialize(num_dimensions=num_dimensions,
                               target_function=target_function,
                               upper_bound=upper_bound,
