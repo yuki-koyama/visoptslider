@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLineEdit, QSlider, QWidget
-from PySide2.QtGui import QFont
-from PySide2.QtCore import Qt
+from PySide2.QtGui import QColor, QFont, QPainter, QPen
+from PySide2.QtCore import QRectF, Qt
 import numpy as np
 
 
@@ -242,6 +242,48 @@ class _VisualizationWidget(QWidget):
 
         self.setMinimumHeight(MINIMUM_HEIGHT)
         self.setMinimumWidth(MINIMUM_WIDTH)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+
+        indicator_pen = QPen(QColor(0x20, 0x20, 0x20))
+        indicator_pen.setWidth(2)
+
+        boundary_pen = QPen(QColor(0x20, 0x20, 0x20))
+        boundary_pen.setWidth(4)
+
+        INDICATOR_WIDTH = 10.0
+
+        gradient_resolution = 120 # TODO
+        x = self.__parent_widget.argument
+        upper = self.__parent_widget.upper_bound
+        lower = self.__parent_widget.lower_bound
+        maximum_value = self.__parent_widget.maximum_value
+        minimum_value = self.__parent_widget.minimum_value
+
+        original_to_scaled_converter = lambda x: np.divide(x - lower, upper - lower)
+        scaled_to_original_converter = lambda x_scaled: np.multiply(x_scaled, upper - lower) + lower
+
+        x_scaled = original_to_scaled_converter(x)
+
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.HighQualityAntialiasing)
+        painter.setRenderHint(QPainter.TextAntialiasing)
+
+        w = event.rect().width()
+        h = event.rect().height()
+
+        # TODO
+
+        # Draw current position
+        indicator_position = x_scaled[self.__target_dimension] * float(w)
+        indicator_rect = QRectF(indicator_position - INDICATOR_WIDTH / 2.0, 0.0, INDICATOR_WIDTH, float(h))
+        painter.setPen(indicator_pen)
+        painter.drawRect(indicator_rect)
+
+        # Draw boundary
+        painter.setPen(boundary_pen)
+        painter.drawRect(event.rect())
 
 
 if __name__ == "__main__":
