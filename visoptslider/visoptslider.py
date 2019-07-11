@@ -76,77 +76,111 @@ class SliderWidget(QGroupBox):
 
     def num_dimensions():
         doc = "The num_dimensions property."
+
         def fget(self):
             return self.__num_dimensions
+
         def fset(self, value):
             self.__num_dimensions = value
+
         def fdel(self):
             del self.__num_dimensions
+
         return locals()
+
     num_dimensions = property(**num_dimensions())
 
     def target_function():
         doc = "The target_function property."
+
         def fget(self):
             return self.__target_function
+
         def fset(self, value):
             self.__target_function = value
+
         def fdel(self):
             del self.__target_function
+
         return locals()
+
     target_function = property(**target_function())
 
     def upper_bound():
         doc = "The upper_bound property."
+
         def fget(self):
             return self.__upper_bound
+
         def fset(self, value):
             self.__upper_bound = value
+
         def fdel(self):
             del self.__upper_bound
+
         return locals()
+
     upper_bound = property(**upper_bound())
 
     def lower_bound():
         doc = "The lower_bound property."
+
         def fget(self):
             return self.__lower_bound
+
         def fset(self, value):
             self.__lower_bound = value
+
         def fdel(self):
             del self.__lower_bound
+
         return locals()
+
     lower_bound = property(**lower_bound())
 
     def maximum_value():
         doc = "The maximum_value property."
+
         def fget(self):
             return self.__maximum_value
+
         def fset(self, value):
             self.__maximum_value = value
+
         def fdel(self):
             del self.__maximum_value
+
         return locals()
+
     maximum_value = property(**maximum_value())
 
     def minimum_value():
         doc = "The minimum_value property."
+
         def fget(self):
             return self.__minimum_value
+
         def fset(self, value):
             self.__minimum_value = value
+
         def fdel(self):
             del self.__minimum_value
+
         return locals()
+
     minimum_value = property(**minimum_value())
 
     def argument():
         doc = "The argument property."
+
         def fget(self):
             return self.__argument
+
         def fdel(self):
             del self.__argument
+
         return locals()
+
     argument = property(**argument())
 
     def set_argument_and_update_sliders(self, argument):
@@ -192,6 +226,7 @@ class SliderWidget(QGroupBox):
             label = ("+" if self.argument[dimension] >= 0.0 else "") + str(self.argument[dimension])
             self.__value_labels[dimension].setText(label)
 
+
 class VisualizationWidget(QWidget):
     def __init__(self, dimension, parent):
         QWidget.__init__(self, parent)
@@ -207,8 +242,7 @@ if __name__ == "__main__":
     def target_function(x):
         value = 0.0
         for i in range(x.shape[0] - 1):
-            value += 100.0 * (x[i + 1] - x[i] * x[i]) * (
-                x[i + 1] - x[i] * x[i]) + (1.0 - x[i]) * (1.0 - x[i])
+            value += 100.0 * (x[i + 1] - x[i] * x[i]) * (x[i + 1] - x[i] * x[i]) + (1.0 - x[i]) * (1.0 - x[i])
         return value
 
     upper_bound = np.array([+2.0, +2.0, +2.0])
