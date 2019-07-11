@@ -39,7 +39,7 @@ namespace visopt
         for (int dimension = 0; dimension < num_dimensions; ++ dimension)
         {
             // Instantiate a slider and set a callback
-            QSlider* slider = new QSlider(Qt::Horizontal);
+            QSlider* slider = new QSlider(Qt::Horizontal, this);
             connect(slider, &QSlider::valueChanged, this, [&](){ this->slidersManipulatedViaGui(); });
             sliders_.push_back(slider);
             grid_layout->addWidget(sliders_[dimension], dimension * 2, 1);
@@ -55,10 +55,11 @@ namespace visopt
             }
 
             // Instantiate a value label widget (if requested)
-            QFont font("");
-            font.setStyleHint(QFont::Monospace);
             if (show_values)
             {
+                QFont font("");
+                font.setStyleHint(QFont::Monospace);
+
                 QLineEdit* line_edit = new QLineEdit();
                 line_edit->setReadOnly(true);
                 line_edit->setFixedWidth(46);
@@ -167,7 +168,7 @@ namespace visopt
 
             constexpr double indicator_width = 10.0;
 
-            const int gradient_resolution = parent_widget_->getGradientResolution();
+            const int resolution = parent_widget_->getResolution();
             const Eigen::VectorXd& x = parent_widget_->getArgument();
             const Eigen::VectorXd& upper = parent_widget_->getUpperBound();
             const Eigen::VectorXd& lower = parent_widget_->getLowerBound();
@@ -196,8 +197,8 @@ namespace visopt
             const int h = event->rect().height();
 
             // Draw gradation
-            const int gradient_width = w / gradient_resolution;
-            for (int i = gradient_width / 2; i < w; i += gradient_width)
+            const int gradation_width = w / resolution;
+            for (int i = gradation_width / 2; i < w; i += gradation_width)
             {
                 Eigen::VectorXd x_scaled_temp = x_scaled;
                 x_scaled_temp(target_dimension_) = static_cast<double>(i) / static_cast<double>(w - 1);
@@ -211,7 +212,7 @@ namespace visopt
                 const QColor color = tinycolormap::GetColor(value).ConvertToQColor();
 
                 // Draw
-                painter.fillRect(i - gradient_width / 2, 0, gradient_width * 2, h, color);
+                painter.fillRect(i - gradation_width / 2, 0, gradation_width * 2, h, color);
             }
 
             // Draw current position

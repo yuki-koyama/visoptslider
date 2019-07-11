@@ -6,7 +6,7 @@ import math
 from matplotlib import cm
 
 
-class SliderWidget(QGroupBox):
+class SlidersWidget(QGroupBox):
 
     __sliders = []
     __visualization_widgets = []
@@ -346,7 +346,7 @@ if __name__ == "__main__":
     labels = ["x1", "x2", "x3"]
     show_values = True
 
-    sliders_widget = SliderWidget(None)
+    sliders_widget = SlidersWidget(None)
     sliders_widget.initialize(num_dimensions=num_dimensions,
                               target_function=target_function,
                               upper_bound=upper_bound,
