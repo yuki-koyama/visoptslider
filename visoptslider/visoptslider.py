@@ -189,7 +189,7 @@ class SliderWidget(QGroupBox):
             return
 
         for dimension in range(self.num_dimensions):
-            label = str(self.argument[dimension]) # TODO
+            label = ("+" if self.argument[dimension] >= 0.0 else "") + str(self.argument[dimension])
             self.__value_labels[dimension].setText(label)
 
 class VisualizationWidget(QWidget):
