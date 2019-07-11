@@ -42,7 +42,7 @@ class SliderWidget(QGroupBox):
             grid_layout.addWidget(slider, dimension * 2, 1)
 
             # Instantiate a visualization widget
-            visualization_widget = VisualizationWidget(dimension, self)
+            visualization_widget = _VisualizationWidget(dimension, self)
             self.__visualization_widgets.append(visualization_widget)
             grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
 
@@ -227,9 +227,21 @@ class SliderWidget(QGroupBox):
             self.__value_labels[dimension].setText(label)
 
 
-class VisualizationWidget(QWidget):
+class _VisualizationWidget(QWidget):
+
+    __target_dimension = 0
+    __parent_widget = None
+
     def __init__(self, dimension, parent):
         QWidget.__init__(self, parent)
+        self.__target_dimension = dimension
+        self.__parent_widget = parent
+
+        MINIMUM_HEIGHT = 32
+        MINIMUM_WIDTH = 200
+
+        self.setMinimumHeight(MINIMUM_HEIGHT)
+        self.setMinimumWidth(MINIMUM_WIDTH)
 
 
 if __name__ == "__main__":
