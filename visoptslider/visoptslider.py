@@ -1,4 +1,5 @@
-from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QSlider, QWidget
+from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLineEdit, QSlider, QWidget
+from PySide2.QtGui import QFont
 from PySide2.QtCore import Qt
 import numpy as np
 
@@ -7,6 +8,7 @@ class SliderWidget(QGroupBox):
 
     __sliders = []
     __visualization_widgets = []
+    __value_labels = []
 
     def __init__(self, parent):
         QGroupBox.__init__(self, parent)
@@ -50,8 +52,15 @@ class SliderWidget(QGroupBox):
 
             # Instantiate a value label widget (if requested)
             if show_values:
-                # TODO
-                pass
+                font = QFont()
+                font.setStyleHint(QFont.Monospace)
+                line_edit = QLineEdit()
+                line_edit.setReadOnly(True)
+                line_edit.setFixedWidth(46)
+                line_edit.setMaxLength(5)
+                line_edit.setFont(font)
+                self.__value_labels.append(line_edit)
+                grid_layout.addWidget(line_edit, dimension * 2, 2)
 
             # Change the slider's resolution (this needs to be done after adding all the widgets)
             slider.setMaximum(slider.width())
@@ -146,17 +155,32 @@ class SliderWidget(QGroupBox):
         self.__set_slider_values_using_current_argument()
 
     def __sliders_manipulated_via_gui(self):
-        pass
+        self.__argument = self.__calculate_argument_from_current_sliders()
+        self.__set_labels_using_current_argument()
+        self.update()
 
     def __calculate_argument_from_current_sliders(self):
-        pass
+        normalized_argument = np.ndarray(self.num_dimensions)
+        for dimension in range(self.num_dimensions):
+            slider = self.__sliders[dimension]
+            v = slider.value()
+            v_min = slider.minimum()
+            v_max = slider.maximum()
+
+            normalized_argument[dimension] = float(v - v_min) / float(v_max - v_min)
+
+        return np.multiply(normalized_argument, self.upper_bound - self.lower_bound) + self.lower_bound
 
     def __set_slider_values_using_current_argument(self):
         pass
 
     def __set_labels_using_current_argument(self):
-        pass
+        if len(self.__value_labels) == 0:
+            return
 
+        for dimension in range(self.num_dimensions):
+            label = str(self.argument[dimension]) # TODO
+            self.__value_labels[dimension].setText(label)
 
 class VisualizationWidget(QWidget):
     def __init__(self, dimension, parent):
