@@ -1,9 +1,9 @@
-from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLineEdit, QSlider, QWidget
-from PySide2.QtGui import QColor, QFont, QPainter, QPen
-from PySide2.QtCore import QRectF, Qt
-import numpy as np
-import math
 from matplotlib import cm
+from PySide2.QtCore import QRectF, Qt
+from PySide2.QtGui import QColor, QFont, QPainter, QPen
+from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLineEdit, QSlider, QWidget
+import math
+import numpy as np
 
 
 class SlidersWidget(QGroupBox):
