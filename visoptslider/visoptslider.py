@@ -2,6 +2,7 @@ from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLin
 from PySide2.QtGui import QColor, QFont, QPainter, QPen
 from PySide2.QtCore import QRectF, Qt
 import numpy as np
+import math
 
 
 class SliderWidget(QGroupBox):
@@ -71,8 +72,12 @@ class SliderWidget(QGroupBox):
         self.lower_bound = lower_bound
         self.maximum_value = maximum_value
         self.minimum_value = minimum_value
+        self.resolution = 200
 
         self.set_argument_and_update_sliders(0.5 * (upper_bound + lower_bound))
+
+    def calculate_value(self, argument):
+        return self.target_function(argument)
 
     def num_dimensions():
         doc = "The num_dimensions property."
@@ -183,6 +188,22 @@ class SliderWidget(QGroupBox):
 
     argument = property(**argument())
 
+    def resolution():
+        doc = "The resolution property."
+
+        def fget(self):
+            return self.__resolution
+
+        def fset(self, value):
+            self.__resolution = value
+
+        def fdel(self):
+            del self.__resolution
+
+        return locals()
+
+    resolution = property(**resolution())
+
     def set_argument_and_update_sliders(self, argument):
         self.__argument = argument
         self.__set_labels_using_current_argument()
@@ -254,7 +275,7 @@ class _VisualizationWidget(QWidget):
 
         INDICATOR_WIDTH = 10.0
 
-        gradient_resolution = 120 # TODO
+        resolution = self.__parent_widget.resolution
         x = self.__parent_widget.argument
         upper = self.__parent_widget.upper_bound
         lower = self.__parent_widget.lower_bound
@@ -273,7 +294,22 @@ class _VisualizationWidget(QWidget):
         w = event.rect().width()
         h = event.rect().height()
 
-        # TODO
+        # Draw gradation
+        gradation_width = int(w / resolution)
+        for i in range(int(gradation_width / 2), w, gradation_width):
+            x_scaled_temp = np.copy(x_scaled)
+            x_scaled_temp[self.__target_dimension] = float(i) / float(w - 1)
+            value = self.__parent_widget.calculate_value(scaled_to_original_converter(x_scaled_temp))
+
+            # Normalize the value into [0, 1]
+            value = (value - minimum_value) / (maximum_value - minimum_value)
+            value = value if math.isfinite(value) else 0.5
+
+            # Get mapped color
+            color = QColor(int(value * 255 if value < 1.0 else 255), 100, 100)  # TODO
+
+            # Draw
+            painter.fillRect(i - gradation_width / 2, 0, gradation_width * 2, h, color)
 
         # Draw current position
         indicator_position = x_scaled[self.__target_dimension] * float(w)
