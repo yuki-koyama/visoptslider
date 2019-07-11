@@ -3,6 +3,7 @@ from PySide2.QtGui import QColor, QFont, QPainter, QPen
 from PySide2.QtCore import QRectF, Qt
 import numpy as np
 import math
+from matplotlib import cm
 
 
 class SliderWidget(QGroupBox):
@@ -306,7 +307,9 @@ class _VisualizationWidget(QWidget):
             value = value if math.isfinite(value) else 0.5
 
             # Get mapped color
-            color = QColor(int(value * 255 if value < 1.0 else 255), 100, 100)  # TODO
+            cmap = cm.get_cmap(name="viridis")
+            rgba = cmap(value)
+            color = QColor(int(rgba[0] * 255), int(rgba[1] * 255), int(rgba[2] * 255))
 
             # Draw
             painter.fillRect(i - gradation_width / 2, 0, gradation_width * 2, h, color)
