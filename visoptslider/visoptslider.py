@@ -172,7 +172,17 @@ class SliderWidget(QGroupBox):
         return np.multiply(normalized_argument, self.upper_bound - self.lower_bound) + self.lower_bound
 
     def __set_slider_values_using_current_argument(self):
-        pass
+        normalized_argument = np.divide(self.argument - self.lower_bound, self.upper_bound - self.lower_bound)
+
+        for dimension in range(self.num_dimensions):
+            slider = self.__sliders[dimension]
+            v_min = slider.minimum()
+            v_max = slider.maximum()
+            v = int(normalized_argument[dimension] * float(v_max - v_min)) + v_min
+
+            slider.blockSignals(True)
+            slider.setValue(v)
+            slider.blockSignals(False)
 
     def __set_labels_using_current_argument(self):
         if len(self.__value_labels) == 0:
