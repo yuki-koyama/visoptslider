@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="visoptslider",
-    version="1.0",
+    version="1.0.dev1",
     author="Yuki Koyama",
     author_email="yuki@koyama.xyz",
-    description="Qt-based implementation of VisOpt Slider [UIST 2014] for C++ & Python",
+    description="Qt-based implementation of VisOpt Slider for C++ & Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yuki-koyama/visoptslider",
