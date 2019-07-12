@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     // Define the target function and bound
-    constexpr int target_dimension = 3;
+    constexpr int num_dimensions = 3;
     constexpr auto target_function = [](const Eigen::VectorXd& x)
     {
         return otf::GetValue(x, otf::FunctionType::Rosenbrock);
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     // Instantiate and initialize the widget
     visopt::SlidersWidget sliders_widget;
-    sliders_widget.initialize(target_dimension,
+    sliders_widget.initialize(num_dimensions,
                               target_function,
                               upper_bound,
                               lower_bound,

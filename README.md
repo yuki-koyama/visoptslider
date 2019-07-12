@@ -1,8 +1,15 @@
 # VisOpt Slider
 
-Qt-based implementation of VisOpt Slider widget [UIST 2014]
+Qt-based implementation of VisOpt Slider widget [UIST 2014] for C++ & Python
 
 ![Interactive exploration of a 3-dimensional Rosenbrock function](./docs/3d_rosenbrock.gif "Interactive exploration of a 3-dimensional Rosenbrock function.")
+
+This repository provides
+
+1. a fully C++ implementation based on Qt5 and
+2. a fully Python implementation based on PySide2 (Qt5).
+
+If your applications are based on Qt, it is quite easy to integrate a VisOpt Slider widget into your applications.
 
 ## Features
 
@@ -16,7 +23,55 @@ VisOpt Slider visualizes the values of the target function along with the slider
 
 _Not available yet_. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
 
-## Build
+## For Python Users
+
+### Install
+
+This library can be install via `pip`:
+```
+pip install git+https://github.com/yuki-koyama/visoptslider
+```
+By this, the dependencies (`numpy`, `PySide2`, `matplotlib`, and their dependencies) will be automatically installed together.
+
+### Python Example
+
+```python
+from PySide2.QtWidgets import QApplication
+import numpy as np
+import visoptslider
+
+if __name__ == "__main__":
+    app = QApplication()
+
+    # Define a target function
+    num_dimensions = 3
+    def target_function(x):
+        return 1.0 - np.linarg.norm(x)
+
+    # Define a target bound
+    upper_bound = np.array([+1.0, +1.0, +1.0])
+    lower_bound = np.array([-1.0, -1.0, -1.0])
+    maximum_value = 1.0
+    minimum_value = 0.0
+
+    # Instantiate and initialize VisOpt Slider
+    sliders_widget = visoptslider.SlidersWidget()
+    sliders_widget.initialize(num_dimensions=num_dimensions,
+                              target_function=target_function,
+                              upper_bound=upper_bound,
+                              lower_bound=lower_bound,
+                              maximum_value=maximum_value,
+                              minimum_value=minimum_value)
+
+    # Show VisOpt Sliders
+    sliders_widget.show()
+
+    app.exec_()
+```
+
+## For C++ Users
+
+### Build
 
 This project is managed by using CMake. It can be built by the standard CMake cycle:
 ```
@@ -27,7 +82,7 @@ cmake ../visoptslider
 make
 ```
 
-## Example
+### C++ Example
 
 ```cpp
 #include <QApplication>
@@ -38,7 +93,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     // Define a target function
-    constexpr int target_dimension = 3;
+    constexpr int num_dimensions = 3;
     constexpr auto target_function = [](const Eigen::VectorXd& x)
     {
         return 1.0 - x.norm();
@@ -52,7 +107,7 @@ int main(int argc, char *argv[])
 
     // Instantiate and initialize VisOpt Slider
     visopt::SlidersWidget sliders_widget;
-    sliders_widget.initialize(target_dimension,
+    sliders_widget.initialize(num_dimensions,
                               target_function,
                               upper_bound,
                               lower_bound,
@@ -66,14 +121,14 @@ int main(int argc, char *argv[])
 }
 ```
 
-## Dependencies
+### Dependencies
 
-### Prerequisites
+#### Prerequisites
 
-- Eigen (e.g., `brew install eigen`)
-- Qt5 (e.g., `brew install qt`)
+- Eigen (e.g., `brew install eigen` / `apt install libeigen3-dev`)
+- Qt5 (e.g., `brew install qt` / `apt install qt5-default`)
 
-### Included as Submodules
+#### Included as Submodules
 
 - tinycolormap <https://github.com/yuki-koyama/tinycolormap>
 - optimization-test-functions <https://github.com/yuki-koyama/optimization-test-functions>
@@ -88,3 +143,7 @@ int main(int argc, char *argv[])
 ## License
 
 MIT License.
+
+## Contributing
+
+Issue reports, suggestions, requests, and PRs are highly welcomed.
