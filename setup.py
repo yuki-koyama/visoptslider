@@ -5,7 +5,7 @@ with open("README.PyPI.md", "r") as fh:
 
 setuptools.setup(
     name="visoptslider",
-    version="1.0.1",
+    version="1.0.2",
     author="Yuki Koyama",
     author_email="yuki@koyama.xyz",
     description="Qt-based implementation of VisOpt Slider widget",
@@ -15,6 +15,8 @@ setuptools.setup(
     packages=["visoptslider"],
     classifiers=[
         "Development Status :: 3 - Alpha",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

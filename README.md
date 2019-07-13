@@ -73,6 +73,10 @@ if __name__ == "__main__":
     app.exec_()
 ```
 
+### Python Versions
+
+This package is tested on `2.7` and `3.7` only.
+
 ## For C++ Users
 
 ### Build
@@ -158,5 +162,4 @@ Many features are currently missing; for example,
 - Options for colormaps (currently, it always uses the `viridis` colormaps)
 - Options for slider directions (currently, it always uses horizontal sliders)
 - Tests for the Python package with various Python environments
-- Support of Python 2.x
 - Documentation
