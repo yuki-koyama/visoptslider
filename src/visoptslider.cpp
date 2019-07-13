@@ -209,10 +209,11 @@ namespace visopt
                 value = std::isnan(value) ? 0.5 : value;
 
                 // Get mapped color
-                const QColor color = tinycolormap::GetColor(value).ConvertToQColor();
+                const auto color = tinycolormap::GetColor(value);
+                const QColor q_color(color.r() * 255.0, color.g() * 255.0, color.b() * 255.0);
 
                 // Draw
-                painter.fillRect(i - gradation_width / 2, 0, gradation_width * 2, h, color);
+                painter.fillRect(i - gradation_width / 2, 0, gradation_width * 2, h, q_color);
             }
 
             // Draw current position
