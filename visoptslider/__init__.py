@@ -1,1 +1,1 @@
-from visoptslider.visoptslider import *
+from .visoptslider import SlidersWidget
