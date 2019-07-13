@@ -73,6 +73,10 @@ if __name__ == "__main__":
     app.exec_()
 ```
 
+### Python Versions
+
+This package is tested on `2.7` and `3.7` only.
+
 ## For C++ Users
 
 ### Build
