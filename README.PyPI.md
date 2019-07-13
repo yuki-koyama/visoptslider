@@ -11,15 +11,10 @@ If your applications are based on Qt (PySide2), it is quite easy to integrate a 
 
 VisOpt Slider is a GUI widget consisting of multiple sliders. It is specifically designed for interactive exploration of a high-dimensional scalar-valued function. It has the following special features.
 
-### Visualization
+- __Visualization__: VisOpt Slider visualizes the values of the target function along with the sliders in the interface using a colormap.
+- __Optimization__: _Not available yet_. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
 
-VisOpt Slider visualizes the values of the target function along with the sliders in the interface using a colormap.
-
-### Optimization
-
-_Not available yet_. Please refer to the original paper [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/) and its extended version [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/).
-
-### Install
+## Install
 
 This package can be install via `pip`:
 ```
@@ -27,7 +22,7 @@ pip install visoptslider
 ```
 By this, the dependencies (`matplotlib`, `numpy`, `PySide2`, and their dependencies) will be automatically installed together.
 
-### Example
+## Example
 
 ```python
 from PySide2.QtWidgets import QApplication
