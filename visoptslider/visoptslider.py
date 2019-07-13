@@ -304,7 +304,10 @@ class _VisualizationWidget(QWidget):
 
             # Normalize the value into [0, 1]
             value = (value - minimum_value) / (maximum_value - minimum_value)
-            value = value if math.isfinite(value) else 0.5
+            if hasattr(math, "isfinite"): # Python 3.2 or later
+                value = value if math.isfinite(value) else 0.5
+            else:
+                value = value if not (math.isnan(value) or math.isinf(value)) else 0.5
 
             # Get mapped color
             cmap = cm.get_cmap(name="viridis")
