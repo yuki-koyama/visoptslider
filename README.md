@@ -1,6 +1,8 @@
 # VisOpt Slider
 
 [![Build Status](https://travis-ci.com/yuki-koyama/visoptslider.svg?branch=master)](https://travis-ci.com/yuki-koyama/visoptslider)
+![GitHub](https://img.shields.io/github/license/yuki-koyama/visoptslider.svg)
+![PyPI](https://img.shields.io/pypi/v/visoptslider.svg)
 
 Qt-based implementation of VisOpt Slider widget [UIST 2014] for C++ & Python
 
