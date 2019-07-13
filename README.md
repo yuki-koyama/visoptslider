@@ -151,3 +151,11 @@ MIT License.
 ## Contributing
 
 Issue reports, suggestions, requests, and PRs are highly welcomed.
+
+Many features are currently missing; for example,
+- Interactive optimization functionality [(Koyama et al. 2014)](https://koyama.xyz/project/CrowdPoweredAnalysis/)
+- Options for colormaps (currently, it always uses the `viridis` colormaps)
+- Options for slider directions (currently, it always uses horizontal sliders)
+- Tests for the Python package with various Python environments
+- Documentation
+- Option to make colors de-saturated [(Koyama et al. 2016)](https://koyama.xyz/project/SelPh/)
