@@ -27,4 +27,5 @@ deploy:
   on:
     branch: master
     tags: true
+    os: linux
   skip_existing: true
