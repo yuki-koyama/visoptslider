@@ -1,11 +1,11 @@
-# Build the c++ library
+# Build the C++ library
 language: cpp
 matrix:
   include:
-    - compiler: gcc
-      os: linux
-    - compiler: clang
-      os: osx
+  - compiler: gcc
+    os: linux
+  - compiler: clang
+    os: osx
 dist: xenial
 addons:
   homebrew:
@@ -19,3 +19,14 @@ addons:
     - libeigen3-dev
 script:
 - cmake . && make
+
+# Deploy the Python package
+deploy:
+  provider: pypi
+  user: koyama
+  password:
+    secure: f6uegVtuSkOx7kzYM8G1UtHWgfaU4c2uQCkIJr8pFij9yu9rPZHjVOcb84htWqyIOalzW2aaP/FzX+R/py6rX39tONz/flcffLhXt2JlJstVWQMDjGrKvYkUkDitQDiBRaaB62YuQmWyvDgQjECtfm5iBG08gcMeX7lFlb8EeWtARBmkYXrhTwBXXV5+f4xmbzrUPR/kemCPklQEA9WOqFskqLhNlQSXA4KpiMcOe7dGLpiSBY/YHk4wpvbZLHegD2LmqdmYzngkiEvq7TmdDVwkUvdjJTNaGRgA72jKp+tZATpKM13ClKlJ9TNVdU/1kzQsTv+LOJIL+Aynrm9rrdXpvbVpwwa8wJvcGSP2HXOkNFlNda8CB+lZbtXvzm8uX7+wng2OTInmlPOHuT9sG7zOZLKqkZtp7jDI2/9w6taZnvUuEl5uA+2VCV6gzQfffMjpmaO62NypVgzqxpXyNHcU194SdyuDZCvoL7K6569oGETiiXnEZ1qPuAzLEMDMDhVTpGDAULFP2CWLLeZnaID0tDb6c16zXgGma9JfW0aPbJ/estKwjerSEnXSvHgL1kDtJYif/a3xOOlX6Q0dXV8xzlgtKSU+2wgwR0TI7ixeYEN4+WzBf+1HS+j/v32iVI6oBWDwVG4UW2OAcdWXHqRfa4VOtJyQ+LHCzVMQKYM=
+  distributions: sdist bdist_wheel
+  on:
+    branch: master
+    tags: true
