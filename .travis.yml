@@ -1,4 +1,3 @@
-# Build the C++ library
 language: cpp
 matrix:
   include:
@@ -19,14 +18,13 @@ addons:
     - libeigen3-dev
 script:
 - cmake . && make
-
-# Deploy the Python package
 deploy:
   provider: pypi
   user: koyama
   password:
-    secure: f6uegVtuSkOx7kzYM8G1UtHWgfaU4c2uQCkIJr8pFij9yu9rPZHjVOcb84htWqyIOalzW2aaP/FzX+R/py6rX39tONz/flcffLhXt2JlJstVWQMDjGrKvYkUkDitQDiBRaaB62YuQmWyvDgQjECtfm5iBG08gcMeX7lFlb8EeWtARBmkYXrhTwBXXV5+f4xmbzrUPR/kemCPklQEA9WOqFskqLhNlQSXA4KpiMcOe7dGLpiSBY/YHk4wpvbZLHegD2LmqdmYzngkiEvq7TmdDVwkUvdjJTNaGRgA72jKp+tZATpKM13ClKlJ9TNVdU/1kzQsTv+LOJIL+Aynrm9rrdXpvbVpwwa8wJvcGSP2HXOkNFlNda8CB+lZbtXvzm8uX7+wng2OTInmlPOHuT9sG7zOZLKqkZtp7jDI2/9w6taZnvUuEl5uA+2VCV6gzQfffMjpmaO62NypVgzqxpXyNHcU194SdyuDZCvoL7K6569oGETiiXnEZ1qPuAzLEMDMDhVTpGDAULFP2CWLLeZnaID0tDb6c16zXgGma9JfW0aPbJ/estKwjerSEnXSvHgL1kDtJYif/a3xOOlX6Q0dXV8xzlgtKSU+2wgwR0TI7ixeYEN4+WzBf+1HS+j/v32iVI6oBWDwVG4UW2OAcdWXHqRfa4VOtJyQ+LHCzVMQKYM=
+    secure: Vt5Qoh6te86anS0W0FqJEy8K1brRTzO7Mh1vKAXqVDwbaWIRRQoHlrpR8nIaV9tXC8wNUHeF80uNk+bDeqzoeGwZbIzYFS6V44+BC+oUTs0wKW7zETaB1M/uMZeNol++HSs7ajFsI+2KnQ5Gw50XVVohypTNxFOz5HXDMVa2c4HdVDku4gyZ3IMd0iRbkYBBA2FXvCzLEN7zid2r98Q4BTWBLUulx3AWrBiflQ8i35iJDdDdIzxZUMOkIFSjPGMkb66a1C4RCgO3l8x3TkEAOHwrYmycbL185w0g0mjhOO2Eia3d/9BmpHuEUBZJ+ihKDpWZMHIChvoea11Dj90pnaMYi9vHqmAjNa1oM0bkYTHsDDmau5RDwfQf7cHttn6aRy6M7Vq2WdlZLzdtWqtCGcSlrhLDSLHY5csSkTS4q2251qcnVgIEgeo1JMFNpj2hbQYIqo0iWnfJaBeslA8H5io71/+zdoXTTgsLGlVOcSApnwfyTLySfloJadr5X6msTXyUq/NjU/RCcsmjfusbKg7hh0jSXOkE0u5bd8K4HMKH0M+B0IxSVBvz6z8tCch4vcn9EldV20Zgr/G25z/i7xW2eSZIBJB0nOqUEFBhxdsaGtPaH/G80RXvMHPnYBfb67mPkbC9JBEdGUVtxGo9+GvbVQyddRk8WIsmEn3zHUw=
   distributions: sdist bdist_wheel
   on:
     branch: master
     tags: true
+  skip_existing: true
