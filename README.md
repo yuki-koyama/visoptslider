@@ -1,5 +1,7 @@
 # VisOpt Slider
 
+[![Build Status](https://travis-ci.com/yuki-koyama/visoptslider.svg?branch=master)](https://travis-ci.com/yuki-koyama/visoptslider)
+
 Qt-based implementation of VisOpt Slider widget [UIST 2014] for C++ & Python
 
 ![Interactive exploration of a 3-dimensional Rosenbrock function](./docs/3d_rosenbrock.gif "Interactive exploration of a 3-dimensional Rosenbrock function.")
