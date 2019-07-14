@@ -50,7 +50,7 @@ if __name__ == "__main__":
     # Define a target function
     num_dimensions = 3
     def target_function(x):
-        return 1.0 - np.linarg.norm(x)
+        return 1.0 - np.linalg.norm(x)
 
     # Define a target bound
     upper_bound = np.array([+1.0, +1.0, +1.0])
