@@ -3,9 +3,9 @@ import numpy as np
 import visoptslider
 
 if __name__ == "__main__":
-
     app = QApplication()
 
+    # Define the target function and bound
     num_dimensions = 3
 
     def target_function(x):
@@ -20,10 +20,12 @@ if __name__ == "__main__":
     maximum_value = 200.0
     minimum_value = 0.0
 
+    # Optional settings
     labels = ["x1", "x2", "x3"]
     show_values = True
     resolution = 200
 
+    # Instantiate and initialize the widget
     sliders_widget = visoptslider.SlidersWidget()
     sliders_widget.initialize(num_dimensions=num_dimensions,
                               target_function=target_function,
@@ -35,5 +37,6 @@ if __name__ == "__main__":
                               show_values=show_values,
                               resolution=resolution)
 
+    # Show the widget
     sliders_widget.show()
     app.exec_()
