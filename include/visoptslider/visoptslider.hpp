@@ -23,7 +23,8 @@ namespace visopt
                         const double maximum_value,
                         const double minimum_value,
                         const std::vector<std::string>& labels = {},
-                        const bool show_values = false);
+                        const bool show_values = false,
+                        const int resolution = 200);
 
         int getNumDimensions() const { return num_dimensions_; }
         void setNumDimensions(const int num_dimensions)
@@ -63,6 +64,10 @@ namespace visopt
         }
 
         int getResolution() const { return resolution_; }
+        void setResolution(const int resolution)
+        {
+            resolution_ = resolution;
+        }
 
         double calculateValue(const Eigen::VectorXd& argument) const
         {
@@ -77,7 +82,7 @@ namespace visopt
         void setSliderValuesUsingCurrentArgument();
         void setLabelsUsingCurrentArgument();
 
-        const int resolution_ = 200;
+        int resolution_;
 
         int num_dimensions_;
         Eigen::VectorXd argument_;

@@ -21,8 +21,8 @@ namespace visopt
                                    const double maximum_value,
                                    const double minimum_value,
                                    const std::vector<std::string>& labels,
-                                   const bool show_values)
-
+                                   const bool show_values,
+                                   const int resolution)
     {
         assert(num_dimensions == upper_bound.rows());
         assert(num_dimensions == lower_bound.rows());
@@ -79,6 +79,7 @@ namespace visopt
         setLowerBound(lower_bound);
         setMaximumValue(maximum_value);
         setMinimumValue(minimum_value);
+        setResolution(resolution);
 
         setArgumentAndUpdateSliders(0.5 * (upper_bound + lower_bound));
     }
