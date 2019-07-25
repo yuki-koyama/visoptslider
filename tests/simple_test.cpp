@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     // Optional settings
     const std::vector<std::string> labels = { "x1", "x2", "x3" };
     constexpr bool show_values = true;
+    constexpr int resolution = 200;
 
     // Instantiate and initialize the widget
     visopt::SlidersWidget sliders_widget;
@@ -33,7 +34,8 @@ int main(int argc, char *argv[])
                               maximum_value,
                               minimum_value,
                               labels,
-                              show_values);
+                              show_values,
+                              resolution);
 
     // Show the widget
     sliders_widget.show();

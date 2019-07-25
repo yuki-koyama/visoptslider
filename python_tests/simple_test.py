@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
     labels = ["x1", "x2", "x3"]
     show_values = True
+    resolution = 200
 
     sliders_widget = visoptslider.SlidersWidget()
     sliders_widget.initialize(num_dimensions=num_dimensions,
@@ -31,7 +32,8 @@ if __name__ == "__main__":
                               maximum_value=maximum_value,
                               minimum_value=minimum_value,
                               labels=labels,
-                              show_values=show_values)
+                              show_values=show_values,
+                              resolution=resolution)
 
     sliders_widget.show()
     app.exec_()

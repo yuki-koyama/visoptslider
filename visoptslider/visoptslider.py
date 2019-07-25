@@ -23,7 +23,8 @@ class SlidersWidget(QGroupBox):
                    maximum_value,
                    minimum_value,
                    labels=[],
-                   show_values=False):
+                   show_values=False,
+                   resolution=200):
         assert num_dimensions == upper_bound.shape[0]
         assert num_dimensions == lower_bound.shape[0]
         assert maximum_value > minimum_value
@@ -73,7 +74,7 @@ class SlidersWidget(QGroupBox):
         self.lower_bound = lower_bound
         self.maximum_value = maximum_value
         self.minimum_value = minimum_value
-        self.resolution = 200
+        self.resolution = resolution
 
         self.set_argument_and_update_sliders(0.5 * (upper_bound + lower_bound))
 
