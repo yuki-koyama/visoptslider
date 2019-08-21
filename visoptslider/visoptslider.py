@@ -212,7 +212,7 @@ class SlidersWidget(QGroupBox):
         def fset(set, value):
             self.__callback = value
 
-        def fdef(self):
+        def fdel(self):
             del self.__callback
 
         return locals()
