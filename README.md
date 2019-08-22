@@ -72,6 +72,7 @@ if __name__ == "__main__":
 
     app.exec_()
 ```
+See `python_test/*.py` for more detailed examples.
 
 ### Python Versions
 
@@ -128,6 +129,7 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 ```
+See `tests/*.cpp` for more detailed examples.
 
 ### Dependencies
 

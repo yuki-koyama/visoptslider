@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
     app.exec_()
 ```
+See <https://github.com/yuki-koyama/visoptslider/tree/master/python_tests> for more detailed examples.
 
 ## References
 
