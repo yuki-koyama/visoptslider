@@ -76,6 +76,11 @@ namespace visopt
 
         void setArgumentAndUpdateSliders(const Eigen::VectorXd& argument);
 
+        void setCallback(const std::function<void(void)>& callback)
+        {
+            callback_ = callback;
+        }
+
     private:
         void slidersManipulatedViaGui();
         Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
@@ -96,6 +101,8 @@ namespace visopt
         std::vector<QSlider*> sliders_;
         std::vector<internal::VisualizationWidget*> visualizations_widgets_;
         std::vector<QLineEdit*> value_labels_;
+
+        std::function<void(void)> callback_;
     };
 
     namespace internal

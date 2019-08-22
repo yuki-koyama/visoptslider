@@ -75,6 +75,7 @@ class SlidersWidget(QGroupBox):
         self.maximum_value = maximum_value
         self.minimum_value = minimum_value
         self.resolution = resolution
+        self.callback = None
 
         self.set_argument_and_update_sliders(0.5 * (upper_bound + lower_bound))
 
@@ -206,6 +207,19 @@ class SlidersWidget(QGroupBox):
 
     resolution = property(**resolution())
 
+    def callback():
+        doc = "The callback property."
+
+        def fset(self, value):
+            self.__callback = value
+
+        def fdel(self):
+            del self.__callback
+
+        return locals()
+
+    callback = property(**callback())
+
     def set_argument_and_update_sliders(self, argument):
         self.__argument = argument
         self.__set_labels_using_current_argument()
@@ -214,6 +228,10 @@ class SlidersWidget(QGroupBox):
     def __sliders_manipulated_via_gui(self):
         self.__argument = self.__calculate_argument_from_current_sliders()
         self.__set_labels_using_current_argument()
+
+        if self.__callback is not None:
+            self.__callback()
+
         self.update()
 
     def __calculate_argument_from_current_sliders(self):

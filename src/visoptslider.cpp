@@ -95,6 +95,9 @@ namespace visopt
     {
         argument_ = calculateArgumentFromCurrentSliders();
         setLabelsUsingCurrentArgument();
+
+        if(callback_) { callback_(); }
+
         update();
     }
 
