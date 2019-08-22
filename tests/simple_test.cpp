@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 #include <Eigen/Core>
@@ -36,6 +37,12 @@ int main(int argc, char *argv[])
                               labels,
                               show_values,
                               resolution);
+
+    // Set a callback function
+    sliders_widget.setCallback([&sliders_widget]()
+    {
+        std::cout << sliders_widget.getArgument().transpose() << std::endl;
+    });
 
     // Show the widget
     sliders_widget.show();
