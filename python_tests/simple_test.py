@@ -37,6 +37,9 @@ if __name__ == "__main__":
                               show_values=show_values,
                               resolution=resolution)
 
+    # Set a callback function
+    sliders_widget.callback = lambda: print(sliders_widget.argument)
+
     # Show the widget
     sliders_widget.show()
     app.exec_()
