@@ -22,7 +22,9 @@ namespace visopt
                                    const double minimum_value,
                                    const std::vector<std::string>& labels,
                                    const bool show_values,
-                                   const int resolution)
+                                   const int resolution,
+                                   const int visualization_minimum_width,
+                                   const int visualization_minimum_height)
     {
         assert(num_dimensions == upper_bound.rows());
         assert(num_dimensions == lower_bound.rows());
@@ -45,7 +47,7 @@ namespace visopt
             grid_layout->addWidget(sliders_[dimension], dimension * 2, 1);
 
             // Instantiate a visualization widget
-            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this));
+            visualizations_widgets_.push_back(new internal::VisualizationWidget(dimension, this, visualization_minimum_width, visualization_minimum_height));
             grid_layout->addWidget(visualizations_widgets_[dimension], dimension * 2 + 1, 1);
 
             // Instantiate a parameter label widget (if requested)
@@ -147,18 +149,26 @@ namespace visopt
         }
     }
 
+    void SlidersWidget::setVisualizationMinimumSize(const int minimum_width, const int minimum_height)
+    {
+        for (internal::VisualizationWidget* widget : visualizations_widgets_)
+        {
+            widget->setMinimumSize(minimum_width, minimum_height);
+        }
+    }
+
     namespace internal
     {
-        VisualizationWidget::VisualizationWidget(const int target_dimension, SlidersWidget* parent) :
+        VisualizationWidget::VisualizationWidget(const int target_dimension,
+                                                 SlidersWidget* parent,
+                                                 const int minimum_width,
+                                                 const int minimum_height) :
         QWidget(parent),
         target_dimension_(target_dimension),
         parent_widget_(parent)
         {
-            constexpr int minimum_height = 32;
-            constexpr int minimum_width = 200;
-
-            setMinimumHeight(minimum_height);
             setMinimumWidth(minimum_width);
+            setMinimumHeight(minimum_height);
         }
 
         void VisualizationWidget::paintEvent(QPaintEvent* event)
@@ -203,7 +213,7 @@ namespace visopt
             const int h = event->rect().height();
 
             // Draw gradation
-            const int gradation_width = w / resolution;
+            const int gradation_width = w / std::min(resolution, w);
             for (int i = gradation_width / 2; i < w; i += gradation_width)
             {
                 Eigen::VectorXd x_scaled_temp = x_scaled;

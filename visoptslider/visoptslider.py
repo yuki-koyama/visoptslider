@@ -24,7 +24,9 @@ class SlidersWidget(QGroupBox):
                    minimum_value,
                    labels=[],
                    show_values=False,
-                   resolution=200):
+                   resolution=200,
+                   visualization_minimum_width=200,
+                   visualization_minimum_height=32):
         assert num_dimensions == upper_bound.shape[0]
         assert num_dimensions == lower_bound.shape[0]
         assert maximum_value > minimum_value
@@ -45,7 +47,9 @@ class SlidersWidget(QGroupBox):
             grid_layout.addWidget(slider, dimension * 2, 1)
 
             # Instantiate a visualization widget
-            visualization_widget = _VisualizationWidget(dimension, self)
+            visualization_widget = _VisualizationWidget(
+                dimension, self, visualization_minimum_width,
+                visualization_minimum_height)
             self.__visualization_widgets.append(visualization_widget)
             grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
 
@@ -227,6 +231,10 @@ class SlidersWidget(QGroupBox):
 
         self.update()
 
+    def set_visualization_minimum_size(self, minimum_width, minimum_height):
+        for widget in self.__visualization_widgets:
+            widget.setMinimumSize(minimum_width, minimum_height)
+
     def __sliders_manipulated_via_gui(self):
         self.__argument = self.__calculate_argument_from_current_sliders()
         self.__set_labels_using_current_argument()
@@ -275,16 +283,13 @@ class _VisualizationWidget(QWidget):
     __target_dimension = 0
     __parent_widget = None
 
-    def __init__(self, dimension, parent):
+    def __init__(self, dimension, parent, minimum_width, minimum_height):
         QWidget.__init__(self, parent)
         self.__target_dimension = dimension
         self.__parent_widget = parent
 
-        MINIMUM_HEIGHT = 32
-        MINIMUM_WIDTH = 200
-
-        self.setMinimumHeight(MINIMUM_HEIGHT)
-        self.setMinimumWidth(MINIMUM_WIDTH)
+        self.setMinimumWidth(minimum_width)
+        self.setMinimumHeight(minimum_height)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -317,7 +322,7 @@ class _VisualizationWidget(QWidget):
         h = event.rect().height()
 
         # Draw gradation
-        gradation_width = int(w / resolution)
+        gradation_width = int(w / min(resolution, w))
         for i in range(int(gradation_width / 2), w, gradation_width):
             x_scaled_temp = np.copy(x_scaled)
             x_scaled_temp[self.__target_dimension] = float(i) / float(w - 1)

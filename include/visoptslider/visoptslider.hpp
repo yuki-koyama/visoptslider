@@ -24,7 +24,9 @@ namespace visopt
                         const double minimum_value,
                         const std::vector<std::string>& labels = {},
                         const bool show_values = false,
-                        const int resolution = 200);
+                        const int resolution = 200,
+                        const int visualization_minimum_width = 200,
+                        const int visualization_minimum_height = 32);
 
         int getNumDimensions() const { return num_dimensions_; }
         void setNumDimensions(const int num_dimensions)
@@ -81,6 +83,8 @@ namespace visopt
             callback_ = callback;
         }
 
+        void setVisualizationMinimumSize(const int minimum_width, const int minimum_height);
+
     private:
         void slidersManipulatedViaGui();
         Eigen::VectorXd calculateArgumentFromCurrentSliders() const;
@@ -110,7 +114,10 @@ namespace visopt
         class VisualizationWidget : public QWidget
         {
         public:
-            VisualizationWidget(const int target_dimension, SlidersWidget* parent);
+            VisualizationWidget(const int target_dimension,
+                                SlidersWidget* parent,
+                                const int minimum_width,
+                                const int minimum_height);
 
         protected:
             void paintEvent(QPaintEvent* event);
