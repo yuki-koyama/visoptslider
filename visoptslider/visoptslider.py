@@ -225,6 +225,8 @@ class SlidersWidget(QGroupBox):
         self.__set_labels_using_current_argument()
         self.__set_slider_values_using_current_argument()
 
+        self.update()
+
     def __sliders_manipulated_via_gui(self):
         self.__argument = self.__calculate_argument_from_current_sliders()
         self.__set_labels_using_current_argument()

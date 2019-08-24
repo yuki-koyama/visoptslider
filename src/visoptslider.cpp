@@ -89,6 +89,8 @@ namespace visopt
         argument_ = argument;
         setLabelsUsingCurrentArgument();
         setSliderValuesUsingCurrentArgument();
+
+        update();
     }
 
     void SlidersWidget::slidersManipulatedViaGui()
