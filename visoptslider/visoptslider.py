@@ -8,12 +8,12 @@ import numpy as np
 
 class SlidersWidget(QGroupBox):
 
-    __sliders = []
-    __visualization_widgets = []
-    __value_labels = []
-
     def __init__(self, parent=None):
         QGroupBox.__init__(self, parent)
+
+        self.__sliders = []
+        self.__visualization_widgets = []
+        self.__value_labels = []
 
     def initialize(self,
                    num_dimensions,
@@ -279,12 +279,9 @@ class SlidersWidget(QGroupBox):
 
 
 class _VisualizationWidget(QWidget):
-
-    __target_dimension = 0
-    __parent_widget = None
-
     def __init__(self, dimension, parent, minimum_width, minimum_height):
         QWidget.__init__(self, parent)
+
         self.__target_dimension = dimension
         self.__parent_widget = parent
 
