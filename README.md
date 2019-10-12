@@ -76,7 +76,7 @@ See `python_test/*.py` for more detailed examples.
 
 ### Python Versions
 
-This package is tested on `2.7` and `3.7` only.
+This package is targeted at Python 3.6+, but currently tested on 3.7 only.
 
 ## For C++ Users
 
