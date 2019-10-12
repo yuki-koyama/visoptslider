@@ -1,14 +1,14 @@
+from typing import Callable, List, Optional, Sequence
 from matplotlib import cm
 from PySide2.QtCore import QRectF, Qt
-from PySide2.QtGui import QColor, QFont, QPainter, QPen
+from PySide2.QtGui import QColor, QFont, QPainter, QPen, QPaintEvent
 from PySide2.QtWidgets import QApplication, QGridLayout, QGroupBox, QLabel, QLineEdit, QSlider, QWidget
 import math
 import numpy as np
 
 
 class SlidersWidget(QGroupBox):
-
-    def __init__(self, parent=None):
+    def __init__(self, parent: Optional[QWidget] = None) -> None:
         QGroupBox.__init__(self, parent)
 
         self.__sliders = []
@@ -16,17 +16,17 @@ class SlidersWidget(QGroupBox):
         self.__value_labels = []
 
     def initialize(self,
-                   num_dimensions,
-                   target_function,
-                   upper_bound,
-                   lower_bound,
-                   maximum_value,
-                   minimum_value,
-                   labels=[],
-                   show_values=False,
-                   resolution=200,
-                   visualization_minimum_width=200,
-                   visualization_minimum_height=32):
+                   num_dimensions: int,
+                   target_function: Callable[[np.ndarray], float],
+                   upper_bound: np.ndarray,
+                   lower_bound: np.ndarray,
+                   maximum_value: float,
+                   minimum_value: float,
+                   labels: Sequence[str] = [],
+                   show_values: bool = False,
+                   resolution: int = 200,
+                   visualization_minimum_width: int = 200,
+                   visualization_minimum_height: int = 32) -> None:
         assert num_dimensions == upper_bound.shape[0]
         assert num_dimensions == lower_bound.shape[0]
         assert maximum_value > minimum_value
@@ -47,9 +47,8 @@ class SlidersWidget(QGroupBox):
             grid_layout.addWidget(slider, dimension * 2, 1)
 
             # Instantiate a visualization widget
-            visualization_widget = _VisualizationWidget(
-                dimension, self, visualization_minimum_width,
-                visualization_minimum_height)
+            visualization_widget = _VisualizationWidget(dimension, self, visualization_minimum_width,
+                                                        visualization_minimum_height)
             self.__visualization_widgets.append(visualization_widget)
             grid_layout.addWidget(visualization_widget, dimension * 2 + 1, 1)
 
@@ -279,7 +278,7 @@ class SlidersWidget(QGroupBox):
 
 
 class _VisualizationWidget(QWidget):
-    def __init__(self, dimension, parent, minimum_width, minimum_height):
+    def __init__(self, dimension: int, parent: SlidersWidget, minimum_width: int, minimum_height: int) -> None:
         QWidget.__init__(self, parent)
 
         self.__target_dimension = dimension
@@ -288,7 +287,9 @@ class _VisualizationWidget(QWidget):
         self.setMinimumWidth(minimum_width)
         self.setMinimumHeight(minimum_height)
 
-    def paintEvent(self, event):
+    def paintEvent(self, event: QPaintEvent) -> None:
+        assert self.__parent_widget is not None
+
         painter = QPainter(self)
 
         indicator_pen = QPen(QColor(0x20, 0x20, 0x20))
